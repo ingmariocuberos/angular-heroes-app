@@ -1,0 +1,40 @@
+<div fxLayout="column">
+    <div >
+        <h1>Buscador de Heroes</h1>
+        <mat-divider></mat-divider>
+    </div>
+    <div>
+        <h3>Buscador</h3>
+        <form class="example-form">
+            <mat-form-field fxLayout="column" class="example-full-width" appearance="fill">
+              <mat-label>Heroes</mat-label>
+              <input type="text"
+                     placeholder="Escoge uno"
+                     aria-label="Heroe"
+                     matInput
+                     [(ngModel)]="termino"
+                     name="termino"
+                     [matAutocomplete]="auto"
+                     (input)="buscando()">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="opcionSeleccionada( $event )">
+                <div *ngIf="heroes.length >= 1 || termino === ''; else ninguno">
+                  <mat-option *ngFor="let heroe of heroes" [value]="heroe">
+                    {{ heroe.superhero }}
+                  </mat-option>
+                </div>
+                <ng-template #ninguno>
+                  <mat-option value="">
+                    Ningún heroe coincide con la busqueda {{ termino }}
+                  </mat-option>
+                </ng-template>                
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+    </div>
+
+    <div>
+      <pre>
+        {{ heroeSeleccionado | json }}
+      </pre>
+    </div>
+</div>
